@@ -31,6 +31,7 @@ class ofApp : public ofBaseApp{
     float inputX, inputY;
     bool performingLearning;
     bool performingFollowing;
-	
+    std::vector<ofColor> colorSet;
 	string templateFile;
+    
 };

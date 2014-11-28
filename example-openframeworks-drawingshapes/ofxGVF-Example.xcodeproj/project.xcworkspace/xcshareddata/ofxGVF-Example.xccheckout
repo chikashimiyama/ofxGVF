@@ -11,17 +11,17 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>77F887B8687689A22EC75452628A3F65A5485DC9</key>
-		<string>ssh://github.com/bcaramiaux/gvf.git</string>
+		<string>https://github.com/chikashimiyama/ofxGVF.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>example-openframeworks-drawingshapes/ofxGVF-Example.xcodeproj/project.xcworkspace</string>
+	<string>example-openframeworks-drawingshapes/ofxGVF-Example.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>77F887B8687689A22EC75452628A3F65A5485DC9</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/bcaramiaux/gvf.git</string>
+	<string>https://github.com/chikashimiyama/ofxGVF.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

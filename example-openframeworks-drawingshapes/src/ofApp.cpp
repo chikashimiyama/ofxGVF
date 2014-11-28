@@ -9,7 +9,7 @@ void ofApp::setup(){
     // CONFIGURATION of the GVF
     config.inputDimensions = 2;
     config.translate       = true;
-    //config.segmentation    = false;
+    config.segmentation    = true;
     
     // PARAMETERS are set by default
     
@@ -26,6 +26,15 @@ void ofApp::setup(){
 		gvf.loadTemplates(templateFile);
 	}
      */
+    
+    
+    colorSet.push_back(ofColor::red);
+    colorSet.push_back(ofColor::green);
+    colorSet.push_back(ofColor::yellow);
+    colorSet.push_back(ofColor::blue);
+    colorSet.push_back(ofColor::orange);
+    colorSet.push_back(ofColor::white);
+
 }
 
 //--------------------------------------------------------------
@@ -124,21 +133,52 @@ void ofApp::draw(){
     os << "FPS: " << ofGetFrameRate() << endl;
     os << "GVFState: " << gvf.getStateAsString() << " ('l': learning, 'f': following, 'c': Clear)" << endl;
     os << "Gesture Recognized: " << gvf.getMostProbableGestureIndex()+1 << endl;
-    
-    
-    float phase = 0.0f;
-    float speed = 0.0f;
-    float size = 0.0f;
-    float angle = 0.0f;
+    ofDrawBitmapString(os.str(), 20, 20);
+
     
 
     // if performing gesture in following mode, display estimated variations
     if (performingFollowing)
     {
+        
+        float phase = 0.0f;
+        float speed = 0.0f;
+        float size = 0.0f;
+        float angle = 0.0f;
+    
         // get outcomes: estimations of how the gesture is performed
         outcomes = gvf.getOutcomes();
 
-          if (outcomes.most_probable >= 0){
+        const std::vector<ofxGVFEstimation> &estimations = outcomes.estimations;
+        float xOffset = 150;
+        float space = ofGetWidth() - xOffset;
+        
+        
+        ofDrawBitmapString("Probablities:", 5, 115);
+        for(int i = 0 ; i < estimations.size(); i++){
+            float width = estimations[i].probability * space;
+            ofSetColor(colorSet[i]);
+            ofRect(xOffset, 100, width, 30);
+            xOffset += width;
+        }
+        
+        {
+            ofSetColor(ofColor::white);
+            ofDrawBitmapString("Phase:", 5, 150);
+            float width = estimations[outcomes.most_probable].phase * space;
+            ofSetColor(colorSet[outcomes.most_probable]);
+            ofRect(150, 135, width, 30);
+        }
+        
+        {
+            ofSetColor(ofColor::white);
+            ofDrawBitmapString("speed:", 5, 185);
+            float width = estimations[outcomes.most_probable].speed * space / 5.0;
+            ofSetColor(colorSet[outcomes.most_probable]);
+            ofRect(150, 170, width, 30);
+        }
+        
+        if (outcomes.most_probable >= 0){
             phase = outcomes.estimations[outcomes.most_probable].phase;
             speed = outcomes.estimations[outcomes.most_probable].speed;
             size = outcomes.estimations[outcomes.most_probable].scale[0];
@@ -147,10 +187,8 @@ void ofApp::draw(){
     }
   
     
-    os << "Cursor: " << phase << " | Speed: " << speed << " | Size: " << size << " | Angle: " << angle << endl;
     
     
-    ofDrawBitmapString(os.str(), 20, 20);
     
 }
 
